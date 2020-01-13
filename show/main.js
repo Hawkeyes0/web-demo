@@ -13,7 +13,7 @@ let layout = (function () {
         liElDegX = 0,
         liElDegY = 0,
 
-        maxNum = 25,
+        maxNum = 162,
 
         liElRowMaxNum = 5,
         liElColMaxNum = 5,
@@ -22,7 +22,7 @@ let layout = (function () {
         liElOffsetY = 350,
         liElOffsetZ = 350,
 
-        liElDepDefault = -100,
+        liElDepDefault = -140,
 
         depDefault = liElDepDefault - 60,
 
@@ -179,9 +179,9 @@ let layout = (function () {
             liElDegY += minusX * 0.1;
 
             $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
-        }).on('mousewhell DOMMouseScroll', e => {
+        }).on('wheel', e => {
 
-            let step = e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1) || e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1);
+            let step = e.originalEvent.deltaY && (e.originalEvent.deltaY > 0 ? -1 : 1) || e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1);
             liElDepZ = depDefault += step * 36;
 
             $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
@@ -191,9 +191,38 @@ let layout = (function () {
     }
 
     main();
+    let dist;
     document.addEventListener('touchstart', ev => {
         // if one point, invoke mouse event
+        if (ev.touches.length === 1) {
+            document.dispatchEvent(new MouseEvent('mousedown', { clientX: ev.touches[0].clientX, clientY: ev.touches[0].clientY }));
+        }
         // if two points, invoke wheel event
+        else if (ev.touches.length === 2) {
+            let t1 = ev.touches[0], t2 = ev.touches[1];
+            dist = Math.pow(t1.clientX - t2.clientX, 2) + Math.pow(t1.clientY - t2.clientY, 2);
+        }
+    });
+    document.addEventListener('touchend', ev => {
+        document.dispatchEvent(new MouseEvent('mouseup', { clientX: ev.changedTouches[0].clientX, clientY: ev.changedTouches[0].clientY }));
+    });
+    document.addEventListener('touchmove', ev => {
+        if (ev.touches.length === 1) {
+            document.dispatchEvent(new MouseEvent('mousemove', { clientX: ev.changedTouches[0].clientX, clientY: ev.changedTouches[0].clientY }));
+        } else if (ev.touches.length === 2) {
+            //let dbg = document.getElementById('debug');
+
+            let t1 = ev.touches[0], t2 = ev.touches[1];
+            let newDist = Math.pow(t1.clientX - t2.clientX, 2) + Math.pow(t1.clientY - t2.clientY, 2);
+
+            //dbg.innerHTML = `touchmove: [0: {x: ${ev.touches[0].clientX}, y: ${ev.touches[0].clientY}}, 1: {x: ${ev.touches[1].clientX}, y: ${ev.touches[1].clientY}}]<br/>moved: ${Math.abs(newDist - dist)}`;
+
+            if (Math.abs(newDist - dist) > 1000) {
+                let wheel = newDist < dist ? 1 : -1;
+                document.dispatchEvent(new WheelEvent('wheel', { deltaY: wheel }));
+                dist = newDist;
+            }
+        }
     });
     return layout;
 })();

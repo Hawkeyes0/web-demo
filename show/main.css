@@ -24,7 +24,7 @@ li {
     height: 0;
     position: relative;
     z-index: 1;
-    transform: translateZ(-160vh);
+    transform: translateZ(-200vh);
     transform-style: preserve-3d;
     transition: transform 1s;
 }
@@ -76,5 +76,7 @@ li {
     position: fixed;
     top: 0;
     left: 0;
-    width: 50vw;
+    height: 50vh;
+    color: white;
+    overflow: scroll;
 }

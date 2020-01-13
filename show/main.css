@@ -71,3 +71,10 @@ li {
     background-color: black;
     opacity: 0.25;
 }
+
+#debug {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50vw;
+}

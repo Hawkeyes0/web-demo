@@ -13,7 +13,7 @@ let layout = (function () {
         liElDegX = 0,
         liElDegY = 0,
 
-        maxNum = 125,
+        maxNum = 25,
 
         liElRowMaxNum = 5,
         liElColMaxNum = 5,
@@ -143,16 +143,16 @@ let layout = (function () {
             layout[$(this).text()]();
         });
 
-        $(document).on('mousedown touchstart', event => {
+        $(document).on('mousedown', event => {
             event = event || window.event;
-            event.preventDefault && event.preventDefault();
+            //event.preventDefault && event.preventDefault();
 
             oldCoordX = event.clientX;
             oldCoordY = event.clientY;
 
             $("#box").css('transition', 'transform 0s');
 
-            $(document).on('mousemove touchmove', event => {
+            $(document).on('mousemove', event => {
                 event = event || window.event;
                 event.preventDefault && event.preventDefault();
 
@@ -170,7 +170,7 @@ let layout = (function () {
 
                 $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
             });
-        }).on('mouseup touchend', _ => {
+        }).on('mouseup', _ => {
             $(document).off('mousemove');
 
             $("#box").css('transition', '');
@@ -191,5 +191,9 @@ let layout = (function () {
     }
 
     main();
+    document.addEventListener('touchstart', ev => {
+        // if one point, invoke mouse event
+        // if two points, invoke wheel event
+    });
     return layout;
 })();

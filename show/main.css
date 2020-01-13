@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100vh;
+}
+
+li {
+    list-style: none;
+}
+
+.wrap {
+    height: 100vh;
+    overflow: hidden;
+    perspective: 800px;
+}
+
+#box {
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    position: relative;
+    z-index: 1;
+    transform: translateZ(-160vh);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+#box li {
+    position: absolute;
+    top: -80px;
+    left: -60px;
+    width: 120px;
+    height: 160px;
+    line-height: 160px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #77ffff44;
+    box-shadow: 0 0 15px #00ffff33;
+    background-color: #05ffff33;
+    transition: border 10ms, box-shadow 10ms, transform 4s ease-in-out;
+    cursor: pointer;
+}
+
+#box li:hover {
+    border-color: #77ffffbb;
+    box-shadow: 0 0 15px #00ffffdd;
+}
+
+#box li span {
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px black;
+    color: #efebef;
+}
+
+.mask {
+    width: 100vw;
+    height: 100vh;
+    background: url("bg.jpg") no-repeat center;
+    background-size: cover;
+    filter: blur(5px);
+}
+
+.mask > .bg-mask {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.25;
+}

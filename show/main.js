@@ -54,15 +54,15 @@ let layout = (function () {
         let liElDegX = dx * i;
 
         $("#box li").eq(n).css({
-            'transform': `rotateY(${liElDegY % 360}deg) rotateX(${liElDegX % 360}deg) translateZ(${Math.abs(liElDepDefault)}vh)`,
-        })
+            'transform': `rotateY(${liElDegY % 360}deg) rotateX(${liElDegX % 360}deg) translateZ(${Math.abs(liElDepDefault)}vh)`
+        });
     }
 
     let layout = {
         Grid: function () {
             doLayout((i, n) => {
-                let offsetStepX = ((i % aScreenNum) % liElRowMaxNum) * liElOffsetX,
-                    offsetStepY = parseInt((i % aScreenNum) / liElColMaxNum) * liElOffsetY,
+                let offsetStepX = i % aScreenNum % liElRowMaxNum * liElOffsetX,
+                    offsetStepY = parseInt(i % aScreenNum / liElColMaxNum) * liElOffsetY,
                     offsetStepZ = parseInt(i / aScreenNum) * liElOffsetZ;
 
                 let liElCoordX = liElFirstPosX + offsetStepX,
@@ -71,8 +71,8 @@ let layout = (function () {
 
                 //debugger;
                 $("#box li").eq(n).css({
-                    'transform': `translate3d(${liElCoordX}px,${liElCoordY}px,${liElCoordZ}px)`,
-                })
+                    'transform': `translate3d(${liElCoordX}px,${liElCoordY}px,${liElCoordZ}px)`
+                });
             });
             currLayout = layout.Grid;
         },
@@ -82,8 +82,8 @@ let layout = (function () {
                 let liElDepY = -10 * parseInt(maxNum / 2) + 10 * i;
 
                 $("#box li").eq(n).css({
-                    'transform': `rotateY(${liElDegY % 360}deg) translateY(${liElDepY}px) translateZ(${Math.abs(liElDepDefault)}vh)`,
-                })
+                    'transform': `rotateY(${liElDegY % 360}deg) translateY(${liElDepY}px) translateZ(${Math.abs(liElDepDefault)}vh)`
+                });
             });
             currLayout = layout.Helix;
         },
@@ -111,18 +111,17 @@ let layout = (function () {
 
                 //debugger;
                 $(e).css({
-                    'transform': `translate3d(${liElCoordX}px,${liElCoordY}px,${liElCoordZ}px)`,
-                })
+                    'transform': `translate3d(${liElCoordX}px,${liElCoordY}px,${liElCoordZ}px)`
+                });
             });
             currLayout = layout.Chaotic;
         },
         Random: function () {
-            while (true) {
-                let idx = getRandom(0, data.length - 2);
-                if (layout[data[idx]] != currLayout) {
-                    return layout[data[idx]]();
-                }
+            let idx = getRandom(0, data.length - 2);
+            while (layout[data[idx]] === currLayout) {
+                idx = getRandom(0, data.length - 2);
             }
+            layout[data[idx]]();
         }
     };
 
@@ -134,7 +133,7 @@ let layout = (function () {
             let idx = getRandom(0, data.length - 1);
 
             let spanEl = $(`<span>${data[idx]}</span>`)
-                .css('color', `rgb(${getRandom(100, 255)},${getRandom(100, 255)},${getRandom(100, 255)})`)
+                .css('color', `rgb(${getRandom(100, 255)},${getRandom(100, 255)},${getRandom(100, 255)})`);
             let liEl = $('<li></li>').attr('title', data[idx]).append(spanEl);
 
             $("#box").append(liEl);
@@ -142,9 +141,9 @@ let layout = (function () {
 
         $("#box li").click(function () {
             layout[$(this).text()]();
-        })
+        });
 
-        $(document).mousedown(event => {
+        $(document).on('mousedown touchstart', event => {
             event = event || window.event;
             event.preventDefault && event.preventDefault();
 
@@ -153,7 +152,7 @@ let layout = (function () {
 
             $("#box").css('transition', 'transform 0s');
 
-            $(document).on('mousemove', event => {
+            $(document).on('mousemove touchmove', event => {
                 event = event || window.event;
                 event.preventDefault && event.preventDefault();
 
@@ -171,7 +170,7 @@ let layout = (function () {
 
                 $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
             });
-        }).mouseup(_ => {
+        }).on('mouseup touchend', _ => {
             $(document).off('mousemove');
 
             $("#box").css('transition', '');
@@ -182,13 +181,13 @@ let layout = (function () {
             $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
         }).on('mousewhell DOMMouseScroll', e => {
 
-            let step = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) || (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));
+            let step = e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1) || e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1);
             liElDepZ = depDefault += step * 36;
 
             $("#box").css('transform', `translateZ(${liElDepZ}vh) rotateX(${liElDegX}deg) rotateY(${liElDegY}deg)`);
         });
 
-        setTimeout(layout.Random, 1000);
+        setTimeout(layout.Grid, 1000);
     }
 
     main();

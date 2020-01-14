@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#bg {
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(6px) brightness(50%);
+    height: calc(100vh + 24px);
+    width: calc(100vw + 24px);
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+#sky {
+    perspective: 160vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#cloud {
+    transform: translateZ(-200vw);
+    transform-style: preserve-3d;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+}
+
+img {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+}

@@ -17,11 +17,11 @@ const cloud = (function () {
             flowers[i] = document.createElement('img');
             flowers[i].src = 'sf.svg';
             flowers[i].alt = 'snowflower';
-            flowers[i].speed = random(0, 1);
+            flowers[i].speed = random(0, 3);
             flowers[i].dataset.z = random(-50, 150);
             flowers[i].dataset.d = random(5, 20);
             flowers[i].dataset.x = random(-50, 50) / dist * (dist + dep - parseFloat(flowers[i].dataset.z));
-            flowers[i].dataset.y = -810;
+            flowers[i].dataset.y = -window.innerHeight * 0.82;
             flowers[i].dataset.dd = random(0, Math.PI);
             flowers[i].dataset.b = Math.round(Math.abs(parseFloat(flowers[i].dataset.z) / 10));
             flowers[i].setAttribute('style', `top: ${flowers[i].dataset.y}px; left: ${flowers[i].dataset.x}vw; transform: translateZ(${flowers[i].dataset.z}vw); filter: blur(${flowers[i].dataset.b}px);`);
@@ -45,10 +45,10 @@ const cloud = (function () {
         for (let item of flowers) {
             item.dataset.y = parseFloat(item.dataset.y) + item.speed;
             if (item.dataset.y > window.innerHeight / dist * (dist + dep - parseFloat(item.dataset.z))) {
-                item.dataset.y = -810;
+                item.dataset.y = -window.innerHeight * 0.82;
                 item.dataset.z = random(-50, 150);
                 item.dataset.x = random(-50, 50) / dist * (dist + dep - parseFloat(item.dataset.z));
-                item.speed = random(0, 1);
+                item.speed = random(0, 3);
                 item.dataset.dd = random(0, Math.PI);
                 item.dataset.b = Math.round(Math.abs(parseFloat(item.dataset.z) / 10));
             }

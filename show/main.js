@@ -195,31 +195,44 @@ let layout = (function () {
     document.addEventListener('touchstart', ev => {
         // if one point, invoke mouse event
         if (ev.touches.length === 1) {
-            document.dispatchEvent(new MouseEvent('mousedown', { clientX: ev.touches[0].clientX, clientY: ev.touches[0].clientY }));
+            document.dispatchEvent(new MouseEvent('mousedown', {
+                clientX: ev.touches[0].clientX,
+                clientY: ev.touches[0].clientY
+            }));
         }
         // if two points, invoke wheel event
         else if (ev.touches.length === 2) {
-            let t1 = ev.touches[0], t2 = ev.touches[1];
+            let t1 = ev.touches[0],
+                t2 = ev.touches[1];
             dist = Math.pow(t1.clientX - t2.clientX, 2) + Math.pow(t1.clientY - t2.clientY, 2);
         }
     });
     document.addEventListener('touchend', ev => {
-        document.dispatchEvent(new MouseEvent('mouseup', { clientX: ev.changedTouches[0].clientX, clientY: ev.changedTouches[0].clientY }));
+        document.dispatchEvent(new MouseEvent('mouseup', {
+            clientX: ev.changedTouches[0].clientX,
+            clientY: ev.changedTouches[0].clientY
+        }));
     });
     document.addEventListener('touchmove', ev => {
         if (ev.touches.length === 1) {
-            document.dispatchEvent(new MouseEvent('mousemove', { clientX: ev.changedTouches[0].clientX, clientY: ev.changedTouches[0].clientY }));
+            document.dispatchEvent(new MouseEvent('mousemove', {
+                clientX: ev.changedTouches[0].clientX,
+                clientY: ev.changedTouches[0].clientY
+            }));
         } else if (ev.touches.length === 2) {
             //let dbg = document.getElementById('debug');
 
-            let t1 = ev.touches[0], t2 = ev.touches[1];
+            let t1 = ev.touches[0],
+                t2 = ev.touches[1];
             let newDist = Math.pow(t1.clientX - t2.clientX, 2) + Math.pow(t1.clientY - t2.clientY, 2);
 
             //dbg.innerHTML = `touchmove: [0: {x: ${ev.touches[0].clientX}, y: ${ev.touches[0].clientY}}, 1: {x: ${ev.touches[1].clientX}, y: ${ev.touches[1].clientY}}]<br/>moved: ${Math.abs(newDist - dist)}`;
 
             if (Math.abs(newDist - dist) > 1000) {
                 let wheel = newDist < dist ? 1 : -1;
-                document.dispatchEvent(new WheelEvent('wheel', { deltaY: wheel }));
+                document.dispatchEvent(new WheelEvent('wheel', {
+                    deltaY: wheel
+                }));
                 dist = newDist;
             }
         }

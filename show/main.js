@@ -1,4 +1,4 @@
-let layout = (function () {
+const layout = (function () {
     let
         currLayout,
 
@@ -41,8 +41,8 @@ let layout = (function () {
     }
 
     function doLayout(func) {
-        let arr = [...Array(maxNum).keys()];
-        $("#box li").each((i, e) => {
+        const arr = [...Array(maxNum).keys()];
+        $('#box li').each((i, e) => {
             let idx = getRandom(0, arr.length - 1);
             func(i, arr[idx], e);
             arr.splice(idx, 1);
@@ -220,13 +220,13 @@ let layout = (function () {
                 clientY: ev.changedTouches[0].clientY
             }));
         } else if (ev.touches.length === 2) {
-            //let dbg = document.getElementById('debug');
+            // let dbg = document.getElementById('debug');
 
             let t1 = ev.touches[0],
                 t2 = ev.touches[1];
             let newDist = Math.pow(t1.clientX - t2.clientX, 2) + Math.pow(t1.clientY - t2.clientY, 2);
 
-            //dbg.innerHTML = `touchmove: [0: {x: ${ev.touches[0].clientX}, y: ${ev.touches[0].clientY}}, 1: {x: ${ev.touches[1].clientX}, y: ${ev.touches[1].clientY}}]<br/>moved: ${Math.abs(newDist - dist)}`;
+            // dbg.innerHTML = `touchmove: [0: {x: ${ev.touches[0].clientX}, y: ${ev.touches[0].clientY}}, 1: {x: ${ev.touches[1].clientX}, y: ${ev.touches[1].clientY}}]<br/>moved: ${Math.abs(newDist - dist)}`;
 
             if (Math.abs(newDist - dist) > 1000) {
                 let wheel = newDist < dist ? 1 : -1;

@@ -1,0 +1,31 @@
+{
+  "name": "web-demo",
+  "version": "1.0.0",
+  "description": "web demos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hawkeyes0/web-demo.git"
+  },
+  "keywords": [
+    "web",
+    "demo"
+  ],
+  "author": "Hawkeyes Wind",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Hawkeyes0/web-demo/issues"
+  },
+  "homepage": "https://github.com/Hawkeyes0/web-demo#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}

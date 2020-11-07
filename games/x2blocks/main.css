@@ -9,7 +9,7 @@ body {
 }
 
 #game-zone {
-	margin: auto;
+	margin: 50px auto;
 	width: 300px;
 	display: grid;
 	grid: repeat(6, 60px) / repeat(5, 60px);
@@ -27,9 +27,10 @@ body {
 	border-radius: 5px;
 	width: 100%;
 	height: 100%;
-	font-size: 25px;
+	font-size: 20px;
 	text-align: center;
 	line-height: 50px;
+	border: 1px solid white;
 }
 
 #game-kits {

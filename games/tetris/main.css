@@ -1,0 +1,25 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+#zone {
+    width: 40vh;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+div[id^="grid"] {
+    box-sizing: border-box;
+    width: 4vh;
+    height: 4vh;
+    border: 1px solid #eeeeff;
+    background-color: #ccccff;
+}
+
+div.solid {
+    background-color: #aaaadd;
+}
